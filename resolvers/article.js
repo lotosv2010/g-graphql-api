@@ -1,5 +1,17 @@
 const articleResolvers = {
-  Query: {},
+  Query: {
+    async articles(parent, { offset, limit }, { dataSources }) {
+      const ps = [
+        dataSources.articles.getArticles({ offset, limit }),
+        dataSources.articles.getArticlesCount()
+      ];
+      const [articles, articlesCount] = await Promise.all(ps);
+      return {
+        articles,
+        articlesCount
+      }
+    }
+  },
   Mutation: {
     async createArticle(parent, { article }, { dataSources, user }) {
       const { articles } = dataSources;

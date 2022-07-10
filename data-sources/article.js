@@ -7,6 +7,14 @@ class Articles extends MongoDataSource {
     // article.populate('author');
     return article.save();
   }
+  async getArticles({ offset, limit }) {
+    return await this.model.find().skip(offset).limit(limit).sort({
+      createAt: -1
+    });
+  }
+  async getArticlesCount() {
+    return await this.model.countDocuments();
+  }
 }
 
 module.exports = Articles;

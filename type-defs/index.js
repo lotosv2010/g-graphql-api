@@ -62,6 +62,11 @@ const typeDefs = gql`
     tagList: [String!],
   }
 
+  type ArticlesPayload {
+    articles: [Article!],
+    articlesCount: Int!
+  }
+
   # Mutation
   type Mutation {
     # User
@@ -77,6 +82,9 @@ const typeDefs = gql`
   type Query {
     # User
     currentUser: UserPayload @auth
+
+    # Article
+    articles(offset: Int = 0, limit: Int = 10): ArticlesPayload
   }
 `;
 
