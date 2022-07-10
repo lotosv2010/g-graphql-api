@@ -65,6 +65,19 @@ const resolvers = {
         }
       };
     },
+    async updateUser(parent, { user: payload }, { dataSources, user }) {
+      const { users } = dataSources;
+      // 更新用户
+      if(payload.password) {
+        payload.password = md5(payload.password);
+      }
+      const userData = await users.updateUser(user._id, payload);
+      return {
+        user: {
+          ...userData.toObject()
+        }
+      };
+    }
   }
 };
 

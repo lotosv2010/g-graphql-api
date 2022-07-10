@@ -17,7 +17,7 @@ const typeDefs = gql`
     username: String!,
     email: String!,
     bio: String,
-    imge: String,
+    image: String,
     token: String
   }
 
@@ -36,9 +36,18 @@ const typeDefs = gql`
     password: String!,
   }
 
+  input UpdateUserInput {
+    username: String,
+    email: String,
+    password: String,
+    image: String,
+    bio: String
+  }
+
   type Mutation {
     login(user: LoginInput): UserPayload,
-    createUser(user: CreateUserInput): UserPayload
+    createUser(user: CreateUserInput): UserPayload,
+    updateUser(user: UpdateUserInput): UserPayload @auth
   }
 
   type Query {

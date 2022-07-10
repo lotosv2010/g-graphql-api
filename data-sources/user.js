@@ -14,6 +14,14 @@ class Users extends MongoDataSource {
     const user = new this.model(parmas);
     return user.save();
   }
+  async updateUser(userId, data) {
+    const user = this.model.findByIdAndUpdate(userId, data, 
+      { 
+        new: true // 默认返回更新之前的数据，new: true返回更新之后的数据
+      }
+    );
+    return user;
+  }
 }
 
 module.exports = Users;
