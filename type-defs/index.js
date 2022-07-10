@@ -16,13 +16,26 @@ const typeDefs = gql`
     _id: ID!,
     username: String!,
     email: String!,
-    createAt: Date!,
-    updatedAt: Date!
+    bio: String,
+    imge: String,
+    token: String
+  }
+
+  type UserPayload {
+    user: User
+  }
+
+  input CreateUserInput {
+    username: String!,
+    email: String!,
+    password: String!,
+  }
+
+  type Mutation {
+    createUser(user: CreateUserInput): UserPayload
   }
 
   type Query {
-    articles: [Article!],
-    article(id: ID!): Article,
     user(id: ID!): User
   }
 `;

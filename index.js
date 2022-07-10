@@ -1,5 +1,6 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
+const chalk = require('chalk');
 const schema = require('./schema');
 const dataSources = require('./data-sources');
 
@@ -14,7 +15,7 @@ async function startApolloServer(schema) {
   await server.start();
   server.applyMiddleware({ app });
   await new Promise(resolve => app.listen({ port: 4000 }, resolve));
-  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  console.log(chalk.green.bold(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`));
 }
 
 

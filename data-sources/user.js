@@ -1,12 +1,15 @@
 const { MongoDataSource }  = require('apollo-datasource-mongodb');
 
 class Users extends MongoDataSource {
-  getUsers() {
-    return this.model.find(); // 访问数据模型对象
+  findByEmail(email) {
+    return this.model.findOne({ email });
   }
-  getUser(id) {
-    console.log(id)
-    return this.findOneById(id);
+  findByUsername(username) {
+    return this.model.findOne({ username });
+  }
+  async saveUser(parmas) {
+    const user = new this.model(parmas);
+    return user.save();
   }
 }
 
