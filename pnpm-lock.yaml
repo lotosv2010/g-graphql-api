@@ -1,6 +1,8 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@graphql-tools/schema': ^8.5.0
+  '@graphql-tools/utils': ^8.8.0
   apollo-datasource-mongodb: ^0.5.4
   apollo-server-express: ^3.9.0
   chalk: '4'
@@ -10,6 +12,8 @@ specifiers:
   mongoose: ^6.4.4
 
 dependencies:
+  '@graphql-tools/schema': 8.5.0_graphql@16.5.0
+  '@graphql-tools/utils': 8.8.0_graphql@16.5.0
   apollo-datasource-mongodb: 0.5.4_5mhcgw7kgtllzpblxbe5clrjs4
   apollo-server-express: 3.9.0_g7snex6epo2tsaz6yhvyva23iq
   chalk: 4.1.2

@@ -7,6 +7,9 @@ class Users extends MongoDataSource {
   findByUsername(username) {
     return this.model.findOne({ username });
   }
+  findById(id) {
+    return this.findOneById(id);
+  }
   async saveUser(parmas) {
     const user = new this.model(parmas);
     return user.save();

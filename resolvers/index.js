@@ -5,9 +5,11 @@ const { jwtSecret } = require('../config/config.default');
 
 const resolvers = {
   Query: {
-    async user(parent, { id }, { dataSources }) {
-      const { users } = dataSources;
-      return await users.getUser(id);
+    async currentUser(parent, args, { user }) {
+      // 返回用户信息
+      return {
+        user
+      };
     }
   },
   Mutation: {

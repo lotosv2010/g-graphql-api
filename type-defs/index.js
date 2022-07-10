@@ -13,7 +13,7 @@ const typeDefs = gql`
   }
 
   type User {
-    _id: ID!,
+    _id: ID! @deprecated(reason: "即将被废除"),
     username: String!,
     email: String!,
     bio: String,
@@ -42,7 +42,7 @@ const typeDefs = gql`
   }
 
   type Query {
-    user(id: ID!): User
+    currentUser: UserPayload @auth
   }
 `;
 
