@@ -1,15 +1,18 @@
 const articleResolvers = {
   Query: {
-    async articles(parent, { offset, limit }, { dataSources }) {
-      const ps = [
-        dataSources.articles.getArticles({ offset, limit }),
-        dataSources.articles.getArticlesCount()
-      ];
-      const [articles, articlesCount] = await Promise.all(ps);
+    async articles(parent, args, { dataSources }) {
       return {
-        articles,
-        articlesCount
+        ...args
       }
+      // const ps = [
+      //   dataSources.articles.getArticles({ offset, limit }),
+      //   dataSources.articles.getArticlesCount()
+      // ];
+      // const [articles, articlesCount] = await Promise.all(ps);
+      // return {
+      //   articles,
+      //   articlesCount
+      // }
     }
   },
   Mutation: {
@@ -28,6 +31,16 @@ const articleResolvers = {
       const { users } = dataSources;
       const user = await users.findById(userId);
       return user;
+    }
+  },
+  ArticlesPayload: {
+    async articles({ offset, limit }, args, { dataSources }) {
+      const articles = await dataSources.articles.getArticles({ offset, limit });
+      return articles
+    },
+    async articlesCount(parent, args, { dataSources }) {
+      const articlesCount = await dataSources.articles.getArticlesCount();
+      return articlesCount
     }
   }
 };
