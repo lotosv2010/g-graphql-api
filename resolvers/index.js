@@ -1,5 +1,6 @@
 const { UserInputError } = require('apollo-server-express');
 const jwt = require('../util/jwt');
+const md5 = require('../util/md5');
 const { jwtSecret } = require('../config/config.default');
 
 const resolvers = {
@@ -10,6 +11,31 @@ const resolvers = {
     }
   },
   Mutation: {
+    async login(parent, { user }, { dataSources }) {
+      const { users } = dataSources;
+      // 用户是否存在
+      const userData = await users.findByEmail(user.email);
+      if(!userData) {
+        throw new UserInputError('邮箱已存在');
+      }
+      // 密码是否正确
+      if(md5(user.password) !== userData.password) {
+        throw new UserInputError('密码错误');
+      }
+      // 生成 token
+      const token = await jwt.sign({
+        userId: userData._id
+      }, jwtSecret, {
+        expiresIn: '7d' // 过期时间 7 天
+      });
+      // 发送
+      return {
+        user: {
+          ...userData.toObject(),
+          token
+        }
+      };
+    },
     async createUser(parent, { user }, { dataSources }) {
       const { users } = dataSources;
       // 判断用户是否存在

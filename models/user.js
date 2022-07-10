@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true,
-    select: false, // 查询的时候过滤这个字段
+    select: true, // 查询的时候过滤这个字段
     set: value => md5(value)
   },
   bio: {
