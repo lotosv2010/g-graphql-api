@@ -1,13 +1,15 @@
 const { ApolloServer, gql } = require('apollo-server-express');
 const express = require('express');
 const schema = require('./schema');
+const dataSources = require('./data-sources');
 
 async function startApolloServer(schema) {
   const app = express();
   const server = new ApolloServer({
     ...schema,
     csrfPrevention: true,
-    cache: 'bounded'
+    cache: 'bounded',
+    dataSources
   });
   await server.start();
   server.applyMiddleware({ app });
